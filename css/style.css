@@ -309,6 +309,48 @@ footer {
     position: fixed;
 }
 
+/* kontak */
+.contact-wrap {
+  background: #e8edfe;
+}
+
+.dbox {
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 0 20px;
+}
+
+.dbox p {
+  margin-bottom: 0;
+}
+
+.dbox p span {
+  font-weight: 500;
+  color: black;
+}
+
+.dbox .icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background: var(--primary-color);
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.dbox .icon span {
+  font-size: 20px;
+  color: #fff;
+}
+
+.dbox .text {
+  width: 100%;
+}
+
 /* media query */
 @media screen and (min-width: 768px) {
   .toggle_btn {
