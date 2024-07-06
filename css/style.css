@@ -299,14 +299,24 @@ button {
 }
 
 footer {
-    background-color: var(--primary-color);
-    padding: 5px;
-    text-align: center;
-    color: white;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    position: fixed;
+  background-color: var(--primary-color);
+  padding: 5px;
+  text-align: center;
+  color: white;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+}
+
+/* tipe rumah */
+#content-title {
+  height: 170px;
+  background-image: url("../image/content-title.png");
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+  color: var(--c-white);
 }
 
 /* kontak */
@@ -351,6 +361,22 @@ footer {
   width: 100%;
 }
 
+/* TIPE RUMAH STYLE */
+.tipe_rumah {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+}
+
+.tipe_rumah_item {
+  box-shadow: 0 0.5rem 1.5rem rgba(22, 28, 45, 0.1);
+  border: 1px solid #eee !important;
+}
+
+.tipe_rumah_item i {
+  font-size: 28px;
+  margin-bottom: 15px !important;
+}
+
 /* media query */
 @media screen and (min-width: 768px) {
   .toggle_btn {
@@ -358,6 +384,12 @@ footer {
   }
   .nav_menu {
     display: block;
+  }
+  .tipe_website_view {
+    display: flex !important;
+  }
+  .tipe_mobile_view {
+    display: none !important;
   }
 }
 
@@ -430,6 +462,12 @@ footer {
     line-height: 23px;
     font-size: 14px;
   }
+  .tipe_website_view {
+    display: none !important;
+  }
+  .tipe_mobile_view {
+    display: flex !important;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -475,7 +513,13 @@ footer {
     width: 350px;
     height: 350px;
   }
-  .featured_info{
+  .featured_info {
     font-size: 19px;
+  }
+  .tipe_website_view {
+    display: none !important;
+  }
+  .tipe_mobile_view {
+    display: flex !important;
   }
 }
