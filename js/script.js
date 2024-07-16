@@ -110,6 +110,13 @@ gsap.from(".tipe_rumah", {
   duration: 0.5,
 });
 
+gsap.from(".detail_tipe_rumah", {
+  opacity: 0,
+  y: 20,
+  delay: 1.8,
+  duration: 0.5,
+});
+
 window.addEventListener("scroll", (e) => {
   const nav = document.querySelector(".header");
   if (window.pageYOffset >= 30) {
@@ -133,6 +140,9 @@ const jsonData = {
       kamar_tidur: 3,
       deskripsi:
         "Case Verde, Rumah dengan desain modern dan luas tanah yang cukup untuk kehidupan keluarga. Dengan dua kamar mandi dan tiga kamar tidur, rumah ini memberikan kenyamanan dan kehangatan bagi keluarga anda.",
+      harga: "700Jt-an",
+      carport: "1",
+      denah_rumah: "./image/denah_rumah.jpg"
     },
     {
       tipe: "B",
@@ -144,6 +154,9 @@ const jsonData = {
       kamar_tidur: 4,
       deskripsi:
         "Sky Villa, Rumah dengan desain modern dan luas tanah yang cukup untuk kehidupan keluarga. Dengan dua kamar mandi dan tiga kamar tidur, rumah ini memberikan kenyamanan dan kehangatan bagi keluarga anda.",
+      harga: "800Jt-an",
+      carport: "1",
+      denah_rumah: "./image/denah_rumah.jpg"
     },
     {
       tipe: "C",
@@ -155,6 +168,9 @@ const jsonData = {
       kamar_tidur: 5,
       deskripsi:
         "Lakeview Mansion, Rumah dengan desain modern dan luas tanah yang cukup untuk kehidupan keluarga. Dengan dua kamar mandi dan tiga kamar tidur, rumah ini memberikan kenyamanan dan kehangatan bagi keluarga anda.",
+      harga: "900Jt-an",
+      carport: "1",
+      denah_rumah: "./image/denah_rumah.jpg"
     },
     {
       tipe: "D",
@@ -166,6 +182,9 @@ const jsonData = {
       kamar_tidur: 3,
       deskripsi:
         "Garden Retreat, Rumah dengan desain modern dan luas tanah yang cukup untuk kehidupan keluarga. Dengan dua kamar mandi dan tiga kamar tidur, rumah ini memberikan kenyamanan dan kehangatan bagi keluarga anda.",
+      harga: "950Jt-an",
+      carport: "1",
+      denah_rumah: "./image/denah_rumah.jpg"
     },
   ],
 };
@@ -208,7 +227,7 @@ function createHouseCard(house, index, isMobileView) {
       </div>
     </div>
   </div>
-  <button class="btn_home view_more_btn mt-1">Selengkapnya</button>
+  <a href="./detail_rumah.html?tipe_rumah=${house.tipe}" class="btn_home view_more_btn mt-1" style="text-decoration:none;">Selengkapnya</a>
   </div>
   `;
 
@@ -233,18 +252,81 @@ function createHouseCard(house, index, isMobileView) {
   return html;
 }
 
+function createTipeLain(house) {
+  const item = `
+  <div class="col-md-6 mt-4 mb-4">
+    <img src="${house.gambar_rumah}" class="w-100" style="max-height:200px; object-fit:cover; object-position:buttom"/>
+    <br><br>
+    <a href="./detail_rumah.html?tipe_rumah=${house.tipe}">
+    <h3 class="text-center">Rumah ${house.nama}</h3>
+    </a>
+  </div>
+  `;
+
+  return item;
+}
+
 // load data into html (web view)
 const rumahContainer = document.getElementById("rumahContainer");
-jsonData.rumah.forEach((house, index) => {
-  // TODO: Mapping all view house
-  const houseCard = createHouseCard(house, index, false);
-  rumahContainer.innerHTML += houseCard;
-});
+if (rumahContainer != null) {
+  jsonData.rumah.forEach((house, index) => {
+    // TODO: Mapping all view house
+    const houseCard = createHouseCard(house, index, false);
+    rumahContainer.innerHTML += houseCard;
+  });
+}
 
 // load data into html (mobile view)
 const rumahContainerMobile = document.getElementById("rumahContainerMobile");
-jsonData.rumah.forEach((house, index) => {
-  // TODO: Mapping all view house
-  const houseCard = createHouseCard(house, index, true);
-  rumahContainerMobile.innerHTML += houseCard;
-});
+if (rumahContainerMobile != null) {
+  jsonData.rumah.forEach((house, index) => {
+    // TODO: Mapping all view house
+    const houseCard = createHouseCard(house, index, true);
+    rumahContainerMobile.innerHTML += houseCard;
+  });
+}
+
+// load data tipe lain
+const lihatTipeLain = document.getElementById("lihatTipeLain");
+if (lihatTipeLain != null) {
+  jsonData.rumah.forEach((house) => {
+    const tipeCard = createTipeLain(house);
+    lihatTipeLain.innerHTML += tipeCard;
+  });
+}
+
+// LOAD DETAIL RUMAH
+
+function filterRumahByTipe(tipe) {
+  const filteredRumah = jsonData.rumah.find(
+    rumah => rumah.tipe == tipe
+  );
+  return filteredRumah || null;
+}
+
+var queryString = window.location.search;
+
+var searchParams = new URLSearchParams(queryString);
+
+var tipeRumahValue = searchParams.get('tipe_rumah');
+
+// load data to view html
+if (tipeRumahValue != null && tipeRumahValue !="") {
+    const filteredRumah = filterRumahByTipe(tipeRumahValue.toUpperCase())
+
+    if (filteredRumah == null){
+      console.log("rumah not found")
+    }else{
+      document.getElementById("title-nama-rumah").innerText = 'Rumah '+ filteredRumah.nama;
+      document.getElementById("gambar-rumah").src = filteredRumah.gambar_rumah;
+      document.getElementById("nama-rumah").innerText = filteredRumah.nama;
+      document.getElementById("deskripsi-rumah").innerText = filteredRumah.deskripsi;
+      document.getElementById("harga-rumah").innerText = filteredRumah.harga;
+      document.getElementById("luas-bangunan-rumah").innerText = filteredRumah.luas_bangunan+ 'm';
+      document.getElementById("luas-tanah-rumah").innerText = filteredRumah.luas_tanah+ 'm';
+      document.getElementById("kamar-mandi-rumah").innerText = filteredRumah.kamar_mandi;
+      document.getElementById("kamar-tidur-rumah").innerText = filteredRumah.kamar_tidur;
+      document.getElementById("carport-rumah").innerText = filteredRumah.carport;
+      document.getElementById("denah-rumah").innerText = filteredRumah.denah_rumah;
+    }
+}

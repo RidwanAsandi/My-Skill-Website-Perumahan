@@ -373,8 +373,13 @@ footer {
 }
 
 .tipe_rumah_item i {
-  font-size: 28px;
+  font-size: 25px;
   margin-bottom: 15px !important;
+}
+
+/* DETAIL RUMAH STYLE */
+.tipe_rumah_rumah {
+  padding-left: 0 !important;
 }
 
 /* media query */
